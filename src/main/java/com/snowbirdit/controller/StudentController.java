@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.snowbirdit.entity.Device;
 import com.snowbirdit.entity.Student;
+import com.snowbirdit.entity.StudentHealth;
 import com.snowbirdit.service.StudentService;
 
 @RestController
@@ -34,6 +36,12 @@ public class StudentController {
     	return studentService.getStudent(id);
     }
     
+    @RequestMapping(value="/searchName/{partOfName}", method=RequestMethod.GET)
+    public List<Student> getStudentsByName(@PathVariable String partOfName){
+    	return studentService.searchStudentByName(partOfName);
+    	
+    }
+    
     /*to test this using postman,  using put -->Body -->RAW--> JSON(application json)*/
     @RequestMapping(method=RequestMethod.PUT)  //,consumes = MediaType.APPLICATION_JSON_VALUE)
     public  Student updateStudent(@RequestBody() Student stud) {
@@ -49,6 +57,15 @@ public class StudentController {
     public Student newStudent(@Valid @RequestBody Student stud) {
     	
     	System.out.println(stud);
+    	
+    	Device aDevice = new Device("new222", "new 333");
+    	stud.getDevices().add(aDevice);
+    	aDevice.setStudent(stud);
+    	
+    	StudentHealth health = new StudentHealth();
+    	health.setComments("sick");
+    	
+    	stud.setStudent_health(health);
     	return studentService.addNewStudent(stud);
     }
     

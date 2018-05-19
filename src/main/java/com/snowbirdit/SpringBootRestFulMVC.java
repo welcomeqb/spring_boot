@@ -11,14 +11,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.snowbirdit.entity.Student;
 
 @SpringBootApplication
-public  class Main {
+public  class SpringBootRestFulMVC {
 
 	
 	public static void saySomething(){  
         System.out.println("Hello, this is static method.");  
     }  
     public static void main(String[] args) {
-        SpringApplication.run(Main.class,args);
+        SpringApplication.run(SpringBootRestFulMVC.class,args);
         System.out.println("Hello ya");
         
        HashMap<Integer,Student> ll = new HashMap<>();

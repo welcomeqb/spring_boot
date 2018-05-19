@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.snowbirdit.entity.Device;
 import com.snowbirdit.entity.Student;
 import com.snowbirdit.repository.StudentRepository;
 
@@ -22,6 +22,11 @@ public class StudentService {
 
         return studentRepository.findAll();
     }
+    
+    public List<Student> searchStudentByName(String partOfName){
+
+        return studentRepository.getNameLike(partOfName);
+    }
 
 	public Optional<Student> getStudent(Integer id) {
 		// TODO Auto-generated method stub
@@ -35,6 +40,7 @@ public class StudentService {
 	
 	public Student addNewStudent(Student stud) {
 		
+		//stud.getDevices().add(new Device("winwin","pcc6"));
 		return studentRepository.saveAndFlush(stud);
 	}
 	
@@ -43,4 +49,5 @@ public class StudentService {
 		studentRepository.deleteById(id);
 	}
 
+	
 }
